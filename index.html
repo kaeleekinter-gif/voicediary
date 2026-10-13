@@ -1,0 +1,1022 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dear Days</title>
+
+<style>
+:root {
+  --bg: #f7f0e9;
+  --paper: #fffaf6;
+  --ink: #38313b;
+  --muted: #857986;
+  --pink: #f0cbd9;
+  --accent: #ad6384;
+  --purple: #ded5f1;
+  --green: #dce8d6;
+  --line: #e9dfe5;
+}
+
+body.blue {
+  --bg: #edf4f8;
+  --pink: #cce4ef;
+  --accent: #477f9b;
+  --purple: #d9e2f5;
+  --green: #d7e9e0;
+}
+
+body.green {
+  --bg: #eff2e9;
+  --pink: #d7e6cf;
+  --accent: #66865d;
+  --purple: #e3dfcf;
+  --green: #cde0c5;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: "Trebuchet MS", system-ui, sans-serif;
+  transition: background .2s;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 12px;
+  padding: 11px 15px;
+  background: var(--ink);
+  color: white;
+}
+
+button.secondary {
+  background: var(--pink);
+  color: var(--ink);
+}
+
+button.light {
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink);
+}
+
+button.danger {
+  background: #f5dfe4;
+  color: #8c354c;
+}
+
+input, textarea, select {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 11px;
+  background: white;
+  color: var(--ink);
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+label {
+  display: block;
+  font-size: .9rem;
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+.app {
+  max-width: 1100px;
+  padding: 20px;
+  margin: auto;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--pink);
+  color: var(--accent);
+  font-size: 22px;
+  font-weight: bold;
+}
+
+h1, h2, h3, p { margin-top: 0; }
+h1 { font-size: 1.35rem; margin-bottom: 2px; }
+.brand p { color: var(--muted); font-size: .8rem; margin: 0; }
+
+.layout {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: 20px;
+}
+
+nav, .panel, .stat {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 20px;
+}
+
+nav {
+  padding: 10px;
+  height: max-content;
+  position: sticky;
+  top: 12px;
+}
+
+nav button {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+nav button.active {
+  background: var(--pink);
+  font-weight: bold;
+}
+
+.view { display: none; }
+.view.active { display: block; }
+
+.hero {
+  padding: 28px;
+  border-radius: 24px;
+  background: linear-gradient(120deg, var(--pink), var(--purple));
+  margin-bottom: 17px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: .7rem;
+  font-weight: bold;
+}
+
+.hero h2 {
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -1.5px;
+  line-height: 1.1;
+  margin: 12px 0;
+}
+
+.hero p { max-width: 430px; }
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.stat { padding: 15px; }
+.stat strong { display: block; font-size: 1.7rem; }
+.stat span { font-size: .8rem; color: var(--muted); }
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin: 22px 0 12px;
+}
+
+.section-title h2 { font-size: 1.2rem; margin: 0; }
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.panel { padding: 17px; margin-bottom: 12px; }
+
+.entry {
+  cursor: pointer;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.entry p {
+  color: var(--muted);
+  white-space: pre-wrap;
+  font-size: .9rem;
+}
+
+.meta {
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+.pill {
+  display: inline-block;
+  background: var(--purple);
+  padding: 4px 9px;
+  border-radius: 20px;
+  font-size: .75rem;
+}
+
+.good { background: var(--green); }
+.mid { background: #f3e7c9; }
+.bad { background: #f3dce2; }
+
+.field { margin-bottom: 15px; }
+
+.moods {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.moods label {
+  padding: 10px;
+  text-align: center;
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.moods input { width: auto; }
+
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.photo-grid img {
+  width: 85px;
+  height: 85px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.wall {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+
+.wall img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.record-box {
+  border: 1px dashed var(--line);
+  padding: 13px;
+  border-radius: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 15px;
+}
+
+audio { width: 100%; margin-top: 10px; }
+
+.quote {
+  background: var(--green);
+  padding: 20px;
+  border-radius: 17px;
+  font: 1.2rem Georgia, serif;
+  margin-bottom: 12px;
+  overflow-wrap: anywhere;
+}
+
+.letter {
+  background: linear-gradient(120deg, var(--purple), var(--pink));
+  padding: 20px;
+  border-radius: 18px;
+  margin-bottom: 12px;
+}
+
+.empty {
+  padding: 25px;
+  text-align: center;
+  background: var(--paper);
+  border: 1px dashed var(--line);
+  border-radius: 18px;
+}
+
+.muted { color: var(--muted); }
+
+footer {
+  text-align: center;
+  padding: 25px 0;
+  color: var(--muted);
+  font-size: .8rem;
+}
+
+@media(max-width: 700px) {
+  .layout { grid-template-columns: 1fr; }
+  nav { position: static; display: flex; overflow-x: auto; }
+  nav button { width: auto; white-space: nowrap; }
+  .cards { grid-template-columns: 1fr; }
+  .stats { gap: 6px; }
+  .stat { padding: 10px; }
+  .wall { grid-template-columns: repeat(2, 1fr); }
+  header { align-items: flex-start; }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+  <div class="brand">
+    <div class="logo">dd</div>
+    <div>
+      <h1>Dear Days</h1>
+      <p>a little place for your memories</p>
+    </div>
+  </div>
+  <button class="light" id="theme">Change theme</button>
+</header>
+
+<div class="layout">
+<nav>
+  <button class="active" data-page="home">Home</button>
+  <button data-page="diary">My diary</button>
+  <button data-page="wall">Memory wall</button>
+  <button data-page="future">Future me</button>
+  <button data-page="quotes">Quote jar</button>
+  <button data-page="capsules">Memory capsules</button>
+</nav>
+
+<main>
+<section class="view active" id="home">
+  <div class="hero">
+    <div class="eyebrow" id="today"></div>
+    <h2>Keep the days<br>you want to remember.</h2>
+    <p>Save a voice, a photo, a thought, or all the little things that make a day yours.</p>
+    <button id="start">Write today's entry</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><strong id="count">0</strong><span>memories</span></div>
+    <div class="stat"><strong id="photos">0</strong><span>photos</span></div>
+    <div class="stat"><strong id="lettersCount">0</strong><span>future letters</span></div>
+  </div>
+
+  <div class="section-title"><h2>Recently remembered</h2></div>
+  <div class="cards" id="recent"></div>
+</section>
+
+<section class="view" id="diary">
+  <div class="section-title">
+    <h2>My diary</h2>
+    <button id="newEntry">+ New entry</button>
+  </div>
+  <div class="field">
+    <input id="search" placeholder="Search your memories...">
+  </div>
+  <div class="cards" id="entries"></div>
+</section>
+
+<section class="view" id="editor">
+  <div class="section-title"><h2 id="editorTitle">New memory</h2></div>
+  <form class="panel" id="entryForm">
+    <input id="editId" type="hidden">
+
+    <div class="field">
+      <label for="title">Memory title</label>
+      <input id="title" required maxlength="100" placeholder="A day I want to remember">
+    </div>
+
+    <div class="field">
+      <label for="date">Date and time</label>
+      <input id="date" type="datetime-local" required>
+    </div>
+
+    <div class="field">
+      <label>How did today feel?</label>
+      <div class="moods">
+        <label><input type="radio" name="mood" value="Good" checked> Good</label>
+        <label><input type="radio" name="mood" value="Mid"> Mid</label>
+        <label><input type="radio" name="mood" value="Bad"> Bad</label>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="note">What happened today?</label>
+      <textarea id="note" placeholder="Write as much or as little as you want..."></textarea>
+    </div>
+
+    <div class="field">
+      <label for="photoInput">Add photos</label>
+      <input id="photoInput" type="file" accept="image/*" multiple>
+      <div class="photo-grid" id="photoPreview"></div>
+    </div>
+
+    <div class="field">
+      <label>Voice memo</label>
+      <div class="record-box">
+        <p class="muted" id="recordStatus">Record a thought, pause, and continue whenever you want.</p>
+        <div class="actions">
+          <button type="button" id="record">Record</button>
+          <button type="button" class="secondary" id="pause" disabled>Pause</button>
+          <button type="button" class="light" id="finish" disabled>Finish</button>
+          <button type="button" class="light" id="removeAudio">Remove audio</button>
+        </div>
+        <audio id="audio" controls hidden></audio>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button type="submit">Save memory</button>
+      <button type="button" class="light" id="cancel">Cancel</button>
+    </div>
+  </form>
+</section>
+
+<section class="view" id="wall">
+  <div class="section-title"><h2>Memory wall</h2></div>
+  <div class="field"><input type="month" id="month"></div>
+  <p class="muted">Your saved photos, gathered month by month.</p>
+  <div class="wall" id="wallPhotos"></div>
+</section>
+
+<section class="view" id="future">
+  <div class="section-title">
+    <h2>Future me</h2>
+    <button id="newLetter">+ Write a letter</button>
+  </div>
+  <div class="hero">
+    <div class="eyebrow">A MESSAGE FROM PAST YOU</div>
+    <h2>Open this on<br>a future day.</h2>
+    <p>Write to your birthday self, your New Year's Eve self, or a future you choose.</p>
+  </div>
+  <div id="letters"></div>
+</section>
+
+<section class="view" id="letterEditor">
+  <div class="section-title"><h2>Write a future letter</h2></div>
+  <form class="panel" id="letterForm">
+    <div class="field">
+      <label for="letterTitle">Letter title</label>
+      <input id="letterTitle" required placeholder="Open on my birthday">
+    </div>
+    <div class="field">
+      <label for="openDate">Open on</label>
+      <input type="date" id="openDate" required>
+    </div>
+    <div class="field">
+      <label for="letterText">Your message</label>
+      <textarea id="letterText" required placeholder="What do you want future you to know?"></textarea>
+    </div>
+    <div class="actions">
+      <button type="submit">Save letter</button>
+      <button type="button" class="light" id="cancelLetter">Cancel</button>
+    </div>
+  </form>
+</section>
+
+<section class="view" id="quotes">
+  <div class="section-title"><h2>Quote jar</h2></div>
+  <form class="panel" id="quoteForm">
+    <div class="field">
+      <label for="quoteText">Save a quote or sentence</label>
+      <textarea id="quoteText" required placeholder="Something you want to remember..."></textarea>
+    </div>
+    <div class="field">
+      <label for="quoteSource">Where it's from (optional)</label>
+      <input id="quoteSource" placeholder="A book, a friend, or yourself">
+    </div>
+    <button type="submit">Save quote</button>
+  </form>
+  <div id="quoteList"></div>
+</section>
+
+<section class="view" id="capsules">
+  <div class="section-title">
+    <h2>Memory capsules</h2>
+    <button id="newCapsule">+ Make one</button>
+  </div>
+  <p class="muted">Collect a season or a whole year in one place.</p>
+  <div id="capsuleList"></div>
+</section>
+</main>
+</div>
+
+<footer>Dear Days · Small moments count, too.</footer>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const KEY = "dearDaysData_v1";
+let db = {entries:[], letters:[], quotes:[], capsules:[]};
+let chosenPhotos = [];
+let audioBlob = null;
+let recorder = null;
+let audioChunks = [];
+let stream = null;
+let savedAudio = null;
+
+function escapeHTML(value="") {
+  return String(value).replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;",
+    '"':"&quot;", "'":"&#39;"
+  }[c]));
+}
+
+function load() {
+  try {
+    const data = JSON.parse(localStorage.getItem(KEY) || "{}");
+    db = {...db, ...data};
+  } catch(e) {
+    alert("Saved data could not be loaded.");
+  }
+}
+
+function save() {
+  try {
+    localStorage.setItem(KEY, JSON.stringify(db));
+    return true;
+  } catch(e) {
+    alert("Your browser storage is full. Try using fewer or smaller photos and recordings.");
+    return false;
+  }
+}
+
+function showPage(name) {
+  document.querySelectorAll(".view").forEach(el =>
+    el.classList.toggle("active", el.id === name)
+  );
+  document.querySelectorAll("nav button").forEach(el =>
+    el.classList.toggle("active", el.dataset.page === name)
+  );
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+document.querySelectorAll("nav button").forEach(button =>
+  button.addEventListener("click", () => showPage(button.dataset.page))
+);
+
+function nowLocal() {
+  const d = new Date();
+  d.setMinutes(d.getMinutes() - d.getTimezoneOffset());
+  return d.toISOString().slice(0,16);
+}
+
+function resetEditor() {
+  $("entryForm").reset();
+  $("editId").value = "";
+  chosenPhotos = [];
+  audioBlob = null;
+  savedAudio = null;
+  $("photoPreview").innerHTML = "";
+  $("audio").hidden = true;
+  $("audio").removeAttribute("src");
+  $("recordStatus").textContent = "Record a thought, pause, and continue whenever you want.";
+  updateRecorderButtons();
+}
+
+function newEntry() {
+  resetEditor();
+  $("date").value = nowLocal();
+  $("editorTitle").textContent = "A new memory";
+  showPage("editor");
+}
+
+$("start").onclick = newEntry;
+$("newEntry").onclick = newEntry;
+$("cancel").onclick = () => showPage("diary");
+
+function resizePhoto(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = reject;
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = reject;
+      img.onload = () => {
+        const scale = Math.min(1, 1100 / Math.max(img.width, img.height));
+        const canvas = document.createElement("canvas");
+        canvas.width = Math.round(img.width * scale);
+        canvas.height = Math.round(img.height * scale);
+        canvas.getContext("2d").drawImage(img,0,0,canvas.width,canvas.height);
+        resolve(canvas.toDataURL("image/jpeg", .76));
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+$("photoInput").onchange = async event => {
+  for (const file of Array.from(event.target.files || [])) {
+    if (file.type.startsWith("image/")) {
+      try { chosenPhotos.push(await resizePhoto(file)); }
+      catch(e) { alert("One photo could not be added."); }
+    }
+  }
+  $("photoPreview").innerHTML = chosenPhotos.map((src,i) =>
+    `<img src="${src}" alt="Selected photo" data-photo="${i}">`
+  ).join("");
+  $("photoPreview").querySelectorAll("img").forEach(img => {
+    img.title = "Click to remove this photo";
+    img.onclick = () => {
+      chosenPhotos.splice(Number(img.dataset.photo),1);
+      $("photoPreview").innerHTML = chosenPhotos.map((src,i) =>
+        `<img src="${src}" alt="Selected photo" data-photo="${i}">`
+      ).join("");
+      bindPhotoRemovals();
+    };
+  });
+  event.target.value = "";
+};
+
+function bindPhotoRemovals() {
+  $("photoPreview").querySelectorAll("img").forEach(img => {
+    img.onclick = () => {
+      chosenPhotos.splice(Number(img.dataset.photo),1);
+      $("photoPreview").innerHTML = chosenPhotos.map((src,i) =>
+        `<img src="${src}" alt="Selected photo" data-photo="${i}">`
+      ).join("");
+      bindPhotoRemovals();
+    };
+  });
+}
+
+function updateRecorderButtons() {
+  const active = recorder && recorder.state !== "inactive";
+  $("record").disabled = !!active;
+  $("pause").disabled = !active;
+  $("finish").disabled = !active;
+  $("pause").textContent = recorder && recorder.state === "paused" ? "Continue" : "Pause";
+}
+
+$("record").onclick = async () => {
+  try {
+    if (!navigator.mediaDevices || !window.MediaRecorder) {
+      alert("Voice recording isn't supported in this browser.");
+      return;
+    }
+    stream = await navigator.mediaDevices.getUserMedia({audio:true});
+    audioChunks = [];
+    recorder = new MediaRecorder(stream);
+    recorder.ondataavailable = e => {
+      if (e.data.size) audioChunks.push(e.data);
+    };
+    recorder.onstop = () => {
+      audioBlob = new Blob(audioChunks, {type:recorder.mimeType || "audio/webm"});
+      savedAudio = null;
+      $("audio").src = URL.createObjectURL(audioBlob);
+      $("audio").hidden = false;
+      $("recordStatus").textContent = "Recording ready. Save the memory to keep it.";
+      stream.getTracks().forEach(t => t.stop());
+      stream = null;
+      updateRecorderButtons();
+    };
+    recorder.start();
+    $("recordStatus").textContent = "Recording...";
+    updateRecorderButtons();
+  } catch(e) {
+    alert("Please allow microphone access to record a voice memo.");
+  }
+};
+
+$("pause").onclick = () => {
+  if (!recorder) return;
+  if (recorder.state === "recording") {
+    recorder.pause();
+    $("recordStatus").textContent = "Paused. Continue when you're ready.";
+  } else if (recorder.state === "paused") {
+    recorder.resume();
+    $("recordStatus").textContent = "Recording...";
+  }
+  updateRecorderButtons();
+};
+
+$("finish").onclick = () => {
+  if (recorder && recorder.state !== "inactive") recorder.stop();
+};
+
+$("removeAudio").onclick = () => {
+  if (recorder && recorder.state !== "inactive") recorder.stop();
+  audioBlob = null;
+  savedAudio = null;
+  $("audio").hidden = true;
+  $("audio").removeAttribute("src");
+  $("recordStatus").textContent = "No recording attached.";
+};
+
+function blobToDataURL(blob) {
+  return new Promise((resolve,reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(blob);
+  });
+}
+
+$("entryForm").onsubmit = async event => {
+  event.preventDefault();
+  if (recorder && recorder.state !== "inactive") {
+    alert("Finish your recording before saving.");
+    return;
+  }
+
+  const id = $("editId").value || crypto.randomUUID();
+  const old = db.entries.find(e => e.id === id);
+  let audioData = savedAudio || old?.audio || null;
+
+  if (audioBlob) {
+    try { audioData = await blobToDataURL(audioBlob); }
+    catch(e) { alert("The recording could not be saved."); return; }
+  }
+
+  const entry = {
+    id,
+    title: $("title").value.trim(),
+    date: $("date").value,
+    note: $("note").value.trim(),
+    mood: document.querySelector('input[name="mood"]:checked').value,
+    photos: chosenPhotos.slice(),
+    audio: audioData
+  };
+
+  if (old) db.entries = db.entries.map(e => e.id === id ? entry : e);
+  else db.entries.unshift(entry);
+
+  if (save()) {
+    resetEditor();
+    showPage("diary");
+  }
+};
+
+function editEntry(id) {
+  const e = db.entries.find(item => item.id === id);
+  if (!e) return;
+  resetEditor();
+  $("editId").value = e.id;
+  $("title").value = e.title;
+  $("date").value = e.date;
+  $("note").value = e.note || "";
+  const mood = document.querySelector(`input[name="mood"][value="${e.mood}"]`);
+  if (mood) mood.checked = true;
+  chosenPhotos = [...(e.photos || [])];
+  savedAudio = e.audio || null;
+  $("photoPreview").innerHTML = chosenPhotos.map((src,i) =>
+    `<img src="${src}" alt="Saved photo" data-photo="${i}">`
+  ).join("");
+  bindPhotoRemovals();
+  if (savedAudio) {
+    $("audio").src = savedAudio;
+    $("audio").hidden = false;
+  }
+  $("editorTitle").textContent = "Edit your memory";
+  showPage("editor");
+}
+
+function openEntry(id) {
+  const e = db.entries.find(item => item.id === id);
+  if (!e) return;
+  const choice = prompt(
+    e.title + "\n\n" + (e.note || "No written note") +
+    "\n\nType EDIT to edit, DELETE to delete, or CANCEL to close."
+  );
+  if (choice?.toUpperCase() === "EDIT") editEntry(id);
+  if (choice?.toUpperCase() === "DELETE" &&
+      confirm("Delete this memory permanently?")) {
+    db.entries = db.entries.filter(item => item.id !== id);
+    save(); render();
+  }
+}
+
+function card(e) {
+  const pics = (e.photos || []).slice(0,3)
+    .map(src => `<img src="${src}" alt="Memory photo">`).join("");
+  return `<article class="panel entry" data-id="${e.id}">
+    <div class="section-title">
+      <h3>${escapeHTML(e.title)}</h3>
+      <span class="pill ${e.mood.toLowerCase()}">${escapeHTML(e.mood)}</span>
+    </div>
+    <div class="meta">${escapeHTML(new Date(e.date).toLocaleString())}</div>
+    <p>${escapeHTML((e.note || "A moment saved.").slice(0,140))}</p>
+    ${e.audio ? "<span class='meta'>Voice memo saved</span>" : ""}
+    <div class="photo-grid">${pics}</div>
+  </article>`;
+}
+
+function renderEntries() {
+  const query = ($("search")?.value || "").toLowerCase();
+  const sorted = [...db.entries]
+    .sort((a,b) => new Date(b.date) - new Date(a.date))
+    .filter(e => (e.title + " " + e.note).toLowerCase().includes(query));
+
+  $("entries").innerHTML = sorted.map(card).join("") ||
+    '<div class="empty">Your diary is waiting for its first memory.</div>';
+
+  $("recent").innerHTML = [...db.entries]
+    .sort((a,b) => new Date(b.date) - new Date(a.date))
+    .slice(0,4).map(card).join("") ||
+    '<div class="empty">Your first memory can start here.</div>';
+
+  document.querySelectorAll("[data-id]").forEach(el => {
+    el.onclick = event => {
+      if (event.target.tagName === "IMG") return;
+      openEntry(el.dataset.id);
+    };
+  });
+}
+
+$("search").oninput = renderEntries;
+
+function renderWall() {
+  const month = $("month").value;
+  const photos = db.entries
+    .filter(e => !month || e.date.slice(0,7) === month)
+    .flatMap(e => (e.photos || []).map(src => ({src, title:e.title})));
+
+  $("wallPhotos").innerHTML = photos.map(p =>
+    `<div><img src="${p.src}" alt="${escapeHTML(p.title)}" title="${escapeHTML(p.title)}"></div>`
+  ).join("") || '<div class="empty">Add photos to your diary to start your photo wall.</div>';
+}
+
+$("month").value = new Date().toISOString().slice(0,7);
+$("month").onchange = renderWall;
+
+$("newLetter").onclick = () => {
+  $("letterForm").reset();
+  $("openDate").value = new Date(Date.now() + 86400000).toISOString().slice(0,10);
+  showPage("letterEditor");
+};
+$("cancelLetter").onclick = () => showPage("future");
+
+$("letterForm").onsubmit = event => {
+  event.preventDefault();
+  db.letters.push({
+    id:crypto.randomUUID(),
+    title:$("letterTitle").value.trim(),
+    date:$("openDate").value,
+    text:$("letterText").value.trim()
+  });
+  if (save()) {
+    $("letterForm").reset();
+    showPage("future");
+  }
+};
+
+function renderLetters() {
+  $("letters").innerHTML = db.letters.map(l => {
+    const unlocked = new Date().toISOString().slice(0,10) >= l.date;
+    return `<article class="letter">
+      <h3>${escapeHTML(l.title)}</h3>
+      <p>${unlocked ? "Available to open" : "Opens on " + escapeHTML(l.date)}</p>
+      ${unlocked
+        ? `<p style="white-space:pre-wrap">${escapeHTML(l.text)}</p>`
+        : "<p>Your message is waiting for its day.</p>"}
+      <button class="light" data-delete-letter="${l.id}">Delete letter</button>
+    </article>`;
+  }).join("") || '<div class="empty">Write a little note for your future self.</div>';
+
+  document.querySelectorAll("[data-delete-letter]").forEach(btn => {
+    btn.onclick = () => {
+      if (confirm("Delete this letter?")) {
+        db.letters = db.letters.filter(l => l.id !== btn.dataset.deleteLetter);
+        save(); renderLetters();
+      }
+    };
+  });
+}
+
+$("quoteForm").onsubmit = event => {
+  event.preventDefault();
+  db.quotes.unshift({
+    id:crypto.randomUUID(),
+    text:$("quoteText").value.trim(),
+    source:$("quoteSource").value.trim()
+  });
+  if (save()) {
+    $("quoteForm").reset();
+    renderQuotes();
+  }
+};
+
+function renderQuotes() {
+  $("quoteList").innerHTML = db.quotes.map(q =>
+    `<article class="quote">“${escapeHTML(q.text)}”
+      ${q.source ? `<p class="meta">— ${escapeHTML(q.source)}</p>` : ""}
+      <button class="light" data-delete-quote="${q.id}">Remove</button>
+    </article>`
+  ).join("") || '<div class="empty">Your quote jar is empty.</div>';
+
+  document.querySelectorAll("[data-delete-quote]").forEach(btn => {
+    btn.onclick = () => {
+      db.quotes = db.quotes.filter(q => q.id !== btn.dataset.deleteQuote);
+      save(); renderQuotes();
+    };
+  });
+}
+
+$("newCapsule").onclick = () => {
+  if (!db.entries.length) {
+    alert("Save a diary entry first.");
+    return;
+  }
+  const title = prompt("Name your capsule, such as Fall 2026:");
+  if (!title) return;
+  const from = prompt("Start date (YYYY-MM-DD):");
+  if (!from) return;
+  const to = prompt("End date (YYYY-MM-DD):");
+  if (!to) return;
+
+  const ids = db.entries.filter(e =>
+    e.date.slice(0,10) >= from && e.date.slice(0,10) <= to
+  ).map(e => e.id);
+
+  db.capsules.unshift({id:crypto.randomUUID(), title, from, to, ids});
+  if (save()) renderCapsules();
+};
+
+function renderCapsules() {
+  $("capsuleList").innerHTML = db.capsules.map(c => {
+    const titles = c.ids.map(id => db.entries.find(e => e.id === id))
+      .filter(Boolean).map(e => escapeHTML(e.title)).join(" · ");
+    return `<article class="panel">
+      <h3>${escapeHTML(c.title)}</h3>
+      <p class="meta">${escapeHTML(c.from)} — ${escapeHTML(c.to)}</p>
+      <p>${titles || "No memories in this date range."}</p>
+      <button class="light" data-delete-capsule="${c.id}">Delete capsule</button>
+    </article>`;
+  }).join("") || '<div class="empty">Make a capsule to collect a season of memories.</div>';
+
+  document.querySelectorAll("[data-delete-capsule]").forEach(btn => {
+    btn.onclick = () => {
+      db.capsules = db.capsules.filter(c => c.id !== btn.dataset.deleteCapsule);
+      save(); renderCapsules();
+    };
+  });
+}
+
+function render() {
+  renderEntries();
+  renderWall();
+  renderLetters();
+  renderQuotes();
+  renderCapsules();
+  $("count").textContent = db.entries.length;
+  $("photos").textContent = db.entries.reduce((n,e) => n + (e.photos || []).length, 0);
+  $("lettersCount").textContent = db.letters.length;
+}
+
+$("theme").onclick = () => {
+  const next = document.body.classList.contains("blue")
+    ? "green"
+    : document.body.classList.contains("green")
+    ? ""
+    : "blue";
+  document.body.classList.remove("blue","green");
+  if (next) document.body.classList.add(next);
+  localStorage.setItem("dearDaysTheme", next);
+};
+
+const theme = localStorage.getItem("dearDaysTheme");
+if (theme) document.body.classList.add(theme);
+
+$("today").textContent = new Date().toLocaleDateString(undefined, {
+  weekday:"long", month:"long", day:"numeric"
+}).toUpperCase();
+
+load();
+render();
+</script>
+</body>
+</html>
